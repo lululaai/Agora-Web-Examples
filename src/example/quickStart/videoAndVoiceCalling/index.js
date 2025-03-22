@@ -3,7 +3,7 @@ AgoraRTC.enableLogUpload();
 // create Agora client
 var client = AgoraRTC.createClient({ mode: "live", codec: "vp8" });
 var localTracks = {
-  videoTrack: null,
+  // videoTrack: null,
   audioTrack: null,
 };
 var remoteUsers = {};
@@ -16,8 +16,8 @@ var options = {
 };
 
 var localTrackState = {
-  videoTrackMuted: false,
-  videoTrackEnabled: true,
+  videoTrackMuted: true,
+  videoTrackEnabled: false,
   audioTrackMuted: false,
   audioTrackEnabled: true,
 };
@@ -156,14 +156,14 @@ async function join() {
       encoderConfig: "music_standard",
     });
 
-    localTracks.videoTrack = await AgoraRTC.createCameraVideoTrack();
+    // localTracks.videoTrack = await AgoraRTC.createCameraVideoTrack();
 
     // play local video track
-    localTracks.videoTrack.play("local-player");
-    $("#local-player-name").text(`uid: ${options.uid}`);
+    //localTracks.videoTrack.play("local-player");
+    //$("#local-player-name").text(`uid: ${options.uid}`);
 
     setEnabled("audio", true);
-    setEnabled("video", true);
+    //setEnabled("video", true);
     // publish local tracks to channel
     await client.publish(Object.values(localTracks));
   }
@@ -205,7 +205,7 @@ async function subscribe(user, mediaType) {
      </div>
     `);
     $("#remote-playerlist").append(player);
-    user.videoTrack.play(`player-${uid}`);
+    // user.videoTrack.play(`player-${uid}`);
   }
   if (mediaType === "audio") {
     user.audioTrack.play();
